@@ -1,0 +1,70 @@
+version: "3.9"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: ["5672:5672","15672:15672"]
+
+  orchestrator:
+    build: ./src/Orchestrator.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  sales:
+    build: ./src/SalesDataAnalysis.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    volumes: ["./data:/data"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  sku:
+    build: ./src/SkuGrouping.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  shelf:
+    build: ./src/ShelfLocation.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  rack:
+    build: ./src/RackCalculation.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  batch:
+    build: ./src/OrderBatching.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  station:
+    build: ./src/PickingStationAllocation.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  eff:
+    build: ./src/EfficiencyAnalysis.Service
+    environment: ["Rabbit:Host=rabbitmq"]
+    depends_on: [rabbitmq]
+    networks: [hitnet]
+
+  gateway:
+    build: ./src/Gateway.Service
+    ports: ["8000:8080"]
+    depends_on: [orchestrator, eff]
+    networks: [hitnet]
+
+networks:
+  hitnet: {}
+
+
+  ui:
+    build: ./ui
+    ports: ["3000:3000"]
+    depends_on: [gateway]
+    networks: [hitnet]

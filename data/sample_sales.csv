@@ -1,0 +1,9 @@
+Order_Date,Time,Customer_Id,Product_Category,Product,Sales,Quantity,Order_Priority
+01/05/2025,09:15:00,C001,Clothing,White T-Shirt,19.99,2,High
+01/05/2025,09:20:00,C002,Clothing,Black T-Shirt,19.99,1,High
+01/05/2025,09:30:00,C003,Electronics,USB Cable,5.99,3,Low
+01/05/2025,09:45:00,C004,Books,Sci-Fi Novel,8.99,1,Medium
+01/05/2025,10:00:00,C005,Clothing,White T-Shirt,19.99,1,High
+01/05/2025,10:10:00,C006,Electronics,USB Cable,5.99,2,Low
+01/05/2025,10:20:00,C007,Home,Coffee Mug,7.99,1,Medium
+01/05/2025,10:30:00,C008,Clothing,Black T-Shirt,19.99,2,High
